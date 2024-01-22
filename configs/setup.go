@@ -1,4 +1,5 @@
-package configs
+
+package configs;
 
 import (
 	"context"
@@ -6,13 +7,12 @@ import (
 	"log"
 	"time"
 
-	"github.com/another-crud-in-go-lang/configs"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func ConnectDB() *mongo.Client {
-    client, err := mongo.NewClient(options.Client().ApplyURI(configs.EnvMongoUri()));
+    client, err := mongo.NewClient(options.Client().ApplyURI(EnvMongoUri()));
 
 	if err!= nil {
 		log.Fatal(err);
@@ -20,13 +20,13 @@ func ConnectDB() *mongo.Client {
 
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second);
 
-	err = client.Connect(ctx);
+	_,err = mongo.Connect(ctx);
 
 	if err != nil {
         log.Fatal(err)
     }
 
-	ping := client.Ping(ctx, nil);
+	err = client.Ping(ctx, nil);
 
 	if err != nil {
         log.Fatal(err)

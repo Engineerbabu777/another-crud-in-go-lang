@@ -8,13 +8,17 @@ import (
 	"net/http"      // Package for handling HTTP requests
 
 	"github.com/gorilla/mux" // External package for routing HTTP requests
+	"example.com/configs"
 )
 
 // Main function, the entry point of the program
 func main() {
 	// Creating a new router using the gorilla/mux package
-	router := mux.NewRouter()
+	router := mux.NewRouter();
 
+	configs.ConnectDB() // Connecting to MongoDB database
+
+	
 	// Handling requests to the root path ("/") with a function
 	router.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
 		// Setting the Content-Type header to indicate that the response is JSON

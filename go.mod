@@ -1,4 +1,4 @@
-module github.com/another-crud-in-go-lang
+module example.com
 
 go 1.21.6
 
