@@ -9,6 +9,8 @@ import (
 
 	"github.com/gorilla/mux" // External package for routing HTTP requests
 	"example.com/configs"
+	"example.com/routes"
+
 )
 
 // Main function, the entry point of the program
@@ -16,7 +18,7 @@ func main() {
 	// Creating a new router using the gorilla/mux package
 	router := mux.NewRouter();
 
-	configs.ConnectDB() // Connecting to MongoDB database
+	configs.Connect("pass uri") // Connecting to MongoDB database
 
 	
 	// Handling requests to the root path ("/") with a function
@@ -27,6 +29,9 @@ func main() {
 		// Encoding a JSON response with a map containing a "data" key and a message value
 		json.NewEncoder(rw).Encode(map[string]string{"data": "Hello from Mux & mongoDB"})
 	}).Methods("GET") // Specifying that this route only responds to HTTP GET requests
+
+	//routes
+    routes.UserRoute(router) //add this
 
 	// Starting the HTTP server on port 6000 with the configured router
 	log.Fatal(http.ListenAndServe(":6000", router))
